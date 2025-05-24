@@ -2,8 +2,9 @@ require("dotenv").config()
 const express = require("express")
 const app = express();
 const cookieParser = require("cookie-parser")
-const authRoutes = require("./routes/auth.route")
 const {connectDB} = require("./lib/db")
+const authRoutes = require("./routes/auth.route")
+const messageRoutes = require("./routes/message.route")
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -12,6 +13,7 @@ app.use(cookieParser())
 
 
 app.use('/api/auth' , authRoutes)
+app.use('/api/message' , messageRoutes)
 
 
 app.listen(process.env.PORT , () => {
