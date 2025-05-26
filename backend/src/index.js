@@ -1,11 +1,12 @@
 require("dotenv").config()
 const express = require("express")
-const app = express();
+// const app = express();
 const cookieParser = require("cookie-parser")
 const cors = require("cors")
 const {connectDB} = require("./lib/db")
 const authRoutes = require("./routes/auth.route")
 const messageRoutes = require("./routes/message.route")
+const {app , server} = require("./lib/socket")
 
 
 const corsOptions = {
@@ -26,7 +27,7 @@ app.use('/api/messages' , messageRoutes)
 
 
 
-app.listen(process.env.PORT , () => {
+server.listen(process.env.PORT , () => {
     console.log(`server is runnig on port ${process.env.PORT}`);
     connectDB()
 })

@@ -1,6 +1,7 @@
 const User = require("../models/user.model")
 const Message = require("../models/message.model")
 const cloudinary = require("../lib/cloudinary")
+const { getReceiverSocketId, io } = require("../lib/socket")
 
 const getUsersForSidebar = async (req , res) => {
     try {
@@ -54,8 +55,13 @@ const sendMessage = async (req, res) => {
 
         await newMessage.save()
 
-        //todo real time funtionality => socket.io
+        //real time funtionality => socket.io
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if(receiverSocketId) {
+            // to(receiverSocketId) -> send message only the reciver not all because this is a one-on-one chat
+            io.to(receiverSocketId).emit("newMessage" , newMessage)
 
+        }
 
         res.status(200).json(newMessage)
 
