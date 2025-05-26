@@ -8,7 +8,7 @@ const authRoutes = require("./routes/auth.route")
 const messageRoutes = require("./routes/message.route")
 const {app , server} = require("./lib/socket")
 const path = require("path")
-const __dirname = path.resolve()
+// const __dirname = path.resolve()
 
 const corsOptions = {
   origin: 'http://localhost:5173',
